@@ -11,44 +11,5 @@ from selenium.webdriver.common.keys import Keys
 import time
 start= time.time()
 driver.get("https://www.opcom.ro/pp/grafice_ip/raportPIPsiVolumTranzactionat.php?lang=ro")
-def my_func(i,j,k):
-    day = driver.find_element(By.NAME, 'day')
-    day.clear()
-    day.send_keys(i)
-    month = driver.find_element(By.NAME, 'month')
-    month.clear()
-    month.send_keys(j)
-    year = driver.find_element(By.NAME, 'year')
-    year.clear()
-    year.send_keys(k)
-    buton = driver.find_element(By.NAME, 'buton')
-    buton.send_keys(Keys.ENTER)
-    page_source = driver.page_source
-    soup = BeautifulSoup(page_source, 'lxml')
-    table1 = soup.find('table', {"class":"border_table"})
-    headers = []
-    for i in table1.find_all('th'):
-      title = i.text
-      headers.append(title)
-    mydata = pd.DataFrame(columns = headers)
-    for j in table1.find_all('tr')[1:]:
-     row_data = j.find_all('td')
-     row = [i.text for i in row_data]
-     length = len(mydata)
-     mydata.loc[length] = row
-    return mydata
-
-df = pd.DataFrame()     
-
-for k in range (2022, 2023):
-    for j in range (8,9):
-        for i in range (1,32):
-            df1 = my_func(i,j,k)
-            df1['Ziua']=i
-            df1['Luna']=j
-            df1['An']=k
-            df = pd.concat([df,df1])
-            print('Ruleaza ziua! ' + str(i))
-
-df.to_csv('C:/rezultat_selenium.csv', index=False)
+...
 timp_load_meters = (time.time() - start)
